@@ -5,15 +5,10 @@ receivers:
       http:
 
 exporters:
-  debug:
-    verbosity: detailed
-
   prometheus:
     endpoint: "0.0.0.0:8889"
     const_labels:
       label1: value1
-
-  logging:
 
   zipkin:
     endpoint: "http://zipkin.railway.internal:9411/api/v2/spans"
@@ -40,8 +35,8 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging, zipkin, otlp/jaeger]
+      exporters: [zipkin, otlp/jaeger]
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging, prometheus]
+      exporters: [prometheus]
