@@ -5,6 +5,9 @@ receivers:
       http:
 
 exporters:
+  debug:
+    verbosity: detailed
+
   prometheus:
     endpoint: "0.0.0.0:8889"
     const_labels:
@@ -37,8 +40,8 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging, zipkin, otlp/jaeger, debug]
+      exporters: [logging, zipkin, otlp/jaeger]
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging, prometheus, debug]
+      exporters: [logging, prometheus]
